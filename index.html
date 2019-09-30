@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>landMine</title>
+</head>
+
+<body>
+    <div id="MineGame">
+        <table></table>
+        <aside>
+            <p>剩余雷数：</p>
+            <p>已用时长：</p>
+            <form>
+                <fieldset>
+                    <legend>挑战难度</legend>
+                    <input type="radio" name="gameLevel" id="lowLevel" /><label for="lowLevel">初级(10*10)</label>
+                    <input type="radio" name="gameLevel" id="middleLevel" /><label for="middleLevel">中级(15*15)</label>
+                    <input type="radio" name="gameLevel" id="highLevel" /><label for="highLevel">高级(20*20)</label>
+                </fieldset>
+            </form>
+            <button id="btn-start">开始游戏</button>
+            <ul>
+                <li>点击开始游戏按钮后，方可开始游戏</li>
+                <li>游戏中途不能退出</li>
+                <li>当选中所有非雷框时，才能赢得比赛</li>
+            </ul>
+        </aside>
+    </div>
+    <script src="js/data.js"></script>
+    <script>
+        // console.log(initData(10));
+    </script>
+</body>
+
+</html>
