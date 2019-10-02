@@ -1,94 +1,100 @@
 (function (exports) {
 
-     exports.mines = 0;
+    let minesNumber = 0;
     let land=[];
+    // let mines=[];
 
-    function drawLand(value) {
-        for (let i = 0; i < value; i++) {
+    function drawLand(num) {
+        for (let i = 0; i < num; i++) {
             let row = [];
-            for (let j = 0; j < value; j++) {
-                row[j] = 0;
+            for (let j = 0; j < num; j++) {
+                row.push({value:0,id:i+'-'+j})
             }
             land.push(row);
         }
     };
 
-    function setMine(value) {
+    function setMine(num) {
         // min和range值的设定没有参考
-        let min = value;
-        let range = value * 2;
-        mines = Math.floor(Math.random() * range + min);
+        let min = num;
+        let range = num * 2;
+        minesNumber = Math.floor(Math.random() * range + min);
 
-        for (let i = 0; i < mines; i++) {
-            let posX = Math.floor(Math.random() * value);
-            let posY = Math.floor(Math.random() * value);
-            if (land[posX][posY] == 9) {
+        for (let i = 0; i < minesNumber; i++) {
+            let posX = Math.floor(Math.random() * num);
+            let posY = Math.floor(Math.random() * num);
+            if (land[posX][posY].value == 9) {
                 i--;
                 return;
             }
-            land[posX][posY] = 9;
+            land[posX][posY].value = 9;
+            // mines.push(land[posX][posY]);
         }
     };
 
-    function matchMinesData(value) {
+    function matchMinesData(num) {
 
-        for (let i = 0; i < value; i++) {
-            for (let j = 0; j < value; j++) {
-                if (land[i][j] == 9) {
+        for (let i = 0; i < num; i++) {
+            for (let j = 0; j < num; j++) {
+                if (land[i][j].value == 9) {
                     continue;
                 }
 
 
                 if (i - 1 >= 0 && j - 1 >= 0) {
-                    if (land[i - 1][j - 1] == 9) {
-                        land[i][j]++;
+                    if (land[i - 1][j - 1].value == 9) {
+                        land[i][j].value++;
                     }
                 };
                 if (i - 1 >= 0) {
-                    if (land[i - 1][j] == 9) {
-                        land[i][j]++;
+                    if (land[i - 1][j].value == 9) {
+                        land[i][j].value++;
                     }
                 };
-                if (i - 1 >= 0 && j + 1 < value) {
-                    if (land[i - 1][j + 1] == 9) {
-                        land[i][j]++;
+                if (i - 1 >= 0 && j + 1 < num) {
+                    if (land[i - 1][j + 1].value == 9) {
+                        land[i][j].value++;
                     }
                 };
                 if (j - 1 >= 0) {
-                    if (land[i][j - 1] == 9) {
-                        land[i][j]++;
+                    if (land[i][j - 1].value == 9) {
+                        land[i][j].value++;
                     }
                 };
-                if (j + 1 < value) {
-                    if (land[i][j + 1] == 9) {
-                        land[i][j]++;
+                if (j + 1 < num) {
+                    if (land[i][j + 1].value == 9) {
+                        land[i][j].value++;
                     }
                 };
-                if (i + 1 < value && j - 1 >= 0) {
-                    if (land[i + 1][j - 1] == 9) {
-                        land[i][j]++;
+                if (i + 1 < num && j - 1 >= 0) {
+                    if (land[i + 1][j - 1].value == 9) {
+                        land[i][j].value++;
                     }
                 };
-                if (i + 1 < value) {
-                    if (land[i + 1][j] == 9) {
-                        land[i][j]++;
+                if (i + 1 < num) {
+                    if (land[i + 1][j].value == 9) {
+                        land[i][j].value++;
                     }
                 };
-                if (i + 1 < value && j + 1 < value) {
-                    if (land[i + 1][j + 1] == 9) {
-                        land[i][j]++;
+                if (i + 1 < num && j + 1 < num) {
+                    if (land[i + 1][j + 1].value == 9) {
+                        land[i][j].value++;
                     }
                 };
             }
         }
 
     };
-    exports.initData = function (value) {
-        land=[];
-        drawLand(value);
-        setMine(value);
-        matchMinesData(value);
+   
+    exports.initData = function (num) {
+        land.length=0;
+        drawLand(num);
+        setMine(num);
+        matchMinesData(num);
+        console.log(land);
+        // console.log(mines);
         return land;
+        
     }
 
 })(window);

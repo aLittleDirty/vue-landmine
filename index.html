@@ -14,7 +14,7 @@
     <div id="mineGame">
         <table>
             <tr v-for="row in land">
-                <td v-for="td in row">{{td}}</td>
+                <td v-for="cell in row" @click="openBox(cell)" @contextmenu.prevent="">{{cell.value}}</td>
             </tr>
         </table>
         <aside>
