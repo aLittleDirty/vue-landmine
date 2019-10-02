@@ -5,21 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <title>landMine</title>
 </head>
 
 <body>
-    <div id="MineGame">
-        <table></table>
+    <div id="mineGame">
+        <table>
+            <tr v-for="row in land">
+                <td v-for="td in row">{{td}}</td>
+            </tr>
+        </table>
         <aside>
             <p>剩余雷数：</p>
             <p>已用时长：</p>
             <form>
                 <fieldset>
                     <legend>挑战难度</legend>
-                    <input type="radio" name="gameLevel" id="lowLevel" /><label for="lowLevel">初级(10*10)</label>
-                    <input type="radio" name="gameLevel" id="middleLevel" /><label for="middleLevel">中级(15*15)</label>
-                    <input type="radio" name="gameLevel" id="highLevel" /><label for="highLevel">高级(20*20)</label>
+                    <label for="lowLevel"><input type="radio" name="gameLevel" id="lowLevel"  @click="refreshData(10)"/>初级(10*10)</label>
+                    <label for="middleLevel"><input type="radio" name="gameLevel" id="middleLevel" @click="refreshData(15)" />中级(15*15)</label>
+                    <label for="highLevel"><input type="radio" name="gameLevel" id="highLevel" @click="refreshData(20)"/>高级(20*20)</label>
                 </fieldset>
             </form>
             <button id="btn-start">开始游戏</button>
@@ -31,8 +37,8 @@
         </aside>
     </div>
     <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
     <script>
-        // console.log(initData(10));
     </script>
 </body>
 

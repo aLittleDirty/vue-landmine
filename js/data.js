@@ -1,7 +1,7 @@
 (function (exports) {
 
-    let land = [];
-    let mines = 0;
+     exports.mines = 0;
+    let land=[];
 
     function drawLand(value) {
         for (let i = 0; i < value; i++) {
@@ -84,9 +84,11 @@
 
     };
     exports.initData = function (value) {
+        land=[];
         drawLand(value);
         setMine(value);
         matchMinesData(value);
         return land;
     }
+
 })(window);

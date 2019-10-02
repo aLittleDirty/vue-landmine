@@ -1,0 +1,53 @@
+
+#mineGame{
+background-color: #B5B5B5;
+position: relative;
+} 
+ #mineGame:after{
+    content: '';
+    clear: both;
+    display: block;
+    visibility: hidden;
+} 
+/* 雷区样式 */
+ #mineGame table{
+float: left;
+border:1px solid green;
+}
+table tr{
+    border: 1px solid red;
+}
+table tr td{
+    border:1px solid #5D5D5D;
+    padding: 10px;
+    font-size: 12px;
+}
+/* 侧边栏样式 */
+#mineGame aside{
+    float: right;
+    margin: 50px;
+    width: 200px;
+}
+aside fieldset label{
+    display: block;
+}
+aside #btn-start{
+    border: 1px solid #5D5D5D;
+    background-color: transparent;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    /* 水平垂直 */
+    margin:10px auto;
+    width: 50%;
+    display: block;
+    font-weight: bold;
+}
+aside ul{
+    padding-left: 10px;
+}
+aside ul li{
+    padding: 5px 0;
+    font-size: 14px;
+}
+
