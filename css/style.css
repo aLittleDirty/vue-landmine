@@ -1,6 +1,6 @@
 
 #mineGame{
-background-color: #B5B5B5;
+background-color: #DCDCDC;
 position: relative;
 } 
  #mineGame:after{
@@ -12,20 +12,37 @@ position: relative;
 /* 雷区样式 */
  #mineGame table{
 float: left;
-border:1px solid green;
 }
-table tr{
-    border: 1px solid red;
+#mineGame table td.mine{
+    background:url(../image/mine.png) no-repeat center center;
+    background-size:90%;
+    font-size: 0;
 }
+#mineGame table td.blank{
+font-size: 0;
+}
+#mineGame table td.cover{
+    border:2px outset #F5F5F5;
+    background-color: #B5B5B5;
+    font-size: 0;
+
+}
+#mineGame table td.flag{
+    background:url(../image/flag.png) no-repeat center center;
+    background-size:90%;
+    font-size: 0;
+}
+
 table tr td{
-    border:1px solid #5D5D5D;
-    padding: 10px;
+    border:2px solid #A9A9A9;
     font-size: 12px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
 }
 /* 侧边栏样式 */
 #mineGame aside{
     float: right;
-    margin: 50px;
     width: 200px;
 }
 aside fieldset label{
@@ -49,5 +66,13 @@ aside ul{
 aside ul li{
     padding: 5px 0;
     font-size: 14px;
+}
+aside>p:nth-of-type(2) span{
+    color:#003366;
+    font-size: 24px;
+}
+aside>p:nth-of-type(1) span{
+    color:#CC0033;
+    font-size: 24px;
 }
 

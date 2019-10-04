@@ -2,13 +2,13 @@
 
     let minesNumber = 0;
     let land=[];
-    // let mines=[];
+    exports.mines=[];
 
     function drawLand(num) {
         for (let i = 0; i < num; i++) {
             let row = [];
             for (let j = 0; j < num; j++) {
-                row.push({value:0,id:i+'-'+j})
+                row.push({value:0,id:i+'-'+j,isMine:false,isBlank:false,isCover:true,isFlag:false,isDisabled:true})
             }
             land.push(row);
         }
@@ -28,7 +28,7 @@
                 return;
             }
             land[posX][posY].value = 9;
-            // mines.push(land[posX][posY]);
+            mines.push(land[posX][posY]);
         }
     };
 
@@ -92,7 +92,6 @@
         setMine(num);
         matchMinesData(num);
         console.log(land);
-        // console.log(mines);
         return land;
         
     }
