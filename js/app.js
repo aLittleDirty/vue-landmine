@@ -1,3 +1,6 @@
+var CONSTANT = require(['./config.js'],function(){
+    alert('done');
+});
 let landMine = new Vue({
     el: "#mineGame",
     data: {
@@ -13,20 +16,20 @@ let landMine = new Vue({
     methods: {
        
         openBox: function (cell) {
-            if (cell.isFlag == true) {
+            if (cell.isFlag) {
                 return;
             }
-            if(cell.isCover==false){
+            if(!cell.isCover){
                 return;
             }
             let value = cell.value;
-            if (value == 0) {
+            if (value == CONSTANT.BLANK) {
                 this.showBlank(cell);
             }
-            if (value > 0 && value < 9) {
+            if (value > CONSTANT.BLANK && value < CONSTANT.MINE) {
                 this.showValue(cell);
             }
-            if (value == 9) {
+            if (value == CONSTANT.MINE) {
                 this.boom();
             }
             // if(this.remainBox==mines.length){
@@ -34,6 +37,7 @@ let landMine = new Vue({
             // }
             
         },
+
 
         showBlank: function (cell) {
 
@@ -57,10 +61,10 @@ let landMine = new Vue({
                     }
                    
                     if(this.land[x][y]!=undefined && this.land[x][y].isCover){
-                        if(this.land[x][y].value==9){
+                        if(this.land[x][y].value==CONSTANT.MINE){
                             continue;
                         }
-                        if(this.land[x][y].value>0 && this.land[x][y].value<9){
+                        if(this.land[x][y].value>CONSTANT.BLANK && this.land[x][y].value<CONSTANT.MINE){
                             this.showValue(this.land[x][y]);
                             continue;
                         }
