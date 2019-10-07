@@ -24,7 +24,7 @@
             let posY = Math.floor(Math.random() * num);
             if (land[posX][posY].value == 9) {
                 i--;
-                return;
+                continue;
             }
             land[posX][posY].value = 9;
             mines.push(land[posX][posY]);

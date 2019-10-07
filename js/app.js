@@ -2,12 +2,12 @@ let landMine = new Vue({
     el: "#mineGame",
     data: {
         land: initData(10),
-        remainMines: mines.length,
+        remainMines: 0,
         times: 0,
         timer: null,
         isStart: false,
         gameLevel:10,
-        remainBox:10*10,
+        // remainBox:10*10,
     },
     
     methods: {
@@ -29,9 +29,9 @@ let landMine = new Vue({
             if (value == 9) {
                 this.boom();
             }
-            if(this.remainBox==mines.length){
-               this.winGame();
-            }
+            // if(this.remainBox==mines.length){
+            //    this.winGame();
+            // }
             
         },
 
@@ -64,7 +64,7 @@ let landMine = new Vue({
                             this.showValue(this.land[x][y]);
                             continue;
                         }
-                        this.remainBox--;
+                        // this.remainBox--;
                         this.land[x][y].isCover=false;
                         this.land[x][y].isBlank=true;
                         this.showBlank(this.land[x][y]);
@@ -76,7 +76,7 @@ let landMine = new Vue({
         },
         showValue: function (cell) {
             cell.isCover = false;
-            this.remainBox--;
+            // this.remainBox--;
 
         },
         boom: function () {
@@ -114,12 +114,12 @@ let landMine = new Vue({
             this.times = 0;
             this.timer = setInterval(this.countTimes, 1000);
             this.land=initData(this.gameLevel);
-            this.remainBox=this.gameLevel*this.gameLevel;
+            // this.remainBox=this.gameLevel*this.gameLevel;
             this.remainMines=mines.length;
         },
-        winGame:function(){
-            alert('you win!');
-        }
+        // winGame:function(){
+        //     alert('you win!');
+        // }
     }
 
 })
