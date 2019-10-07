@@ -1,6 +1,5 @@
 (function (exports) {
 
-    let minesNumber = 0;
     let land=[];
     exports.mines=[];
 
@@ -8,7 +7,7 @@
         for (let i = 0; i < num; i++) {
             let row = [];
             for (let j = 0; j < num; j++) {
-                row.push({value:0,id:i+'-'+j,isMine:false,isBlank:false,isCover:true,isFlag:false,isDisabled:true})
+                row.push({value:0,id:i+'-'+j,isMine:false,isBlank:false,isCover:true,isFlag:false})
             }
             land.push(row);
         }
@@ -18,7 +17,7 @@
         // min和range值的设定没有参考
         let min = num;
         let range = num * 2;
-        minesNumber = Math.floor(Math.random() * range + min);
+       let  minesNumber = Math.floor(Math.random() * range + min);
 
         for (let i = 0; i < minesNumber; i++) {
             let posX = Math.floor(Math.random() * num);
@@ -88,10 +87,14 @@
    
     exports.initData = function (num) {
         land.length=0;
+        mines.length=0;
+
         drawLand(num);
         setMine(num);
         matchMinesData(num);
+
         console.log(land);
+        console.log(mines.length);
         return land;
         
     }

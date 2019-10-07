@@ -15,24 +15,24 @@
         <table @contextmenu.prevent>
             <tr v-for="row in land">
                 <td v-for="cell in row" 
-                @click="openBox(cell)" 
-                @contextmenu.prevent="stickFlag(cell)" 
+                @click="isStart && openBox(cell)" 
+                @contextmenu.prevent="isStart && stickFlag(cell)" 
                 :class="{'mine':cell.isMine,'blank':cell.isBlank,'cover':cell.isCover,flag:cell.isFlag}" 
-                :disabled='true'>{{cell.value}}</td>
+                >{{cell.value}}</td>
             </tr>
         </table>
         <aside>
             <p>剩余雷数：<span>{{remainMines>=0?remainMines:0}}</span> 个</p>
             <p>已用时长：<span>{{times}} </span>秒</p>
             <form>
-                <fieldset>
-                    <legend>挑战难度</legend>
-                    <label for="lowLevel"><input type="radio" name="gameLevel" id="lowLevel"  @click="refreshData(10)"/>初级(10*10)</label>
-                    <label for="middleLevel"><input type="radio" name="gameLevel" id="middleLevel" @click="refreshData(15)" />中级(15*15)</label>
-                    <label for="highLevel"><input type="radio" name="gameLevel" id="highLevel" @click="refreshData(20)"/>高级(20*20)</label>
+                <fieldset :disabled="isStart">
+                    <legend >挑战难度</legend>
+                    <label for="lowLevel"><input type="radio" name="gameLevel" id="lowLevel"    @click="chooseLevel(10)" checked/>初级(10*10)</label>
+                    <label for="middleLevel"><input type="radio" name="gameLevel" id="middleLevel"   @click="chooseLevel(15)" />中级(15*15)</label>
+                    <label for="highLevel"><input type="radio" name="gameLevel" id="highLevel"   @click="chooseLevel(20)"/>高级(20*20)</label>
                 </fieldset>
             </form>
-            <button id="btn-start">开始游戏</button>
+            <button id="btn-start" :disabled="isStart" @click="startGame">开始游戏</button>
             <ul>
                 <li>点击开始游戏按钮后，方可开始游戏</li>
                 <li>游戏中途不能退出</li>

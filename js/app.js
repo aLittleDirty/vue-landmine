@@ -2,16 +2,21 @@ let landMine = new Vue({
     el: "#mineGame",
     data: {
         land: initData(10),
-        remainMines:mines.length,
-        times:0,
+        remainMines: mines.length,
+        times: 0,
+        timer: null,
+        isStart: false,
+        gameLevel:10,
+        remainBox:10*10,
     },
+    
     methods: {
-        refreshData: function (value) {
-            this.land = initData(value);
-            console.log(this.land);
-        },
+       
         openBox: function (cell) {
-            if(cell.isFlag==true){
+            if (cell.isFlag == true) {
+                return;
+            }
+            if(cell.isCover==false){
                 return;
             }
             let value = cell.value;
@@ -24,82 +29,96 @@ let landMine = new Vue({
             if (value == 9) {
                 this.boom();
             }
-        },
-        showBlank: function (cell) {
+            if(this.remainBox==mines.length){
+               this.winGame();
+            }
             
-            // if(cell=={}){
-            //     return;
-            // }
-            cell.isBlank=true;
-            cell.isCover=false;
-            // cell的点击事件失效
+        },
 
-            // let posX = cell.id.split('-')[0];
-            // let posY = cell.id.split('-')[1];
+        showBlank: function (cell) {
 
-            // for (let x = posX - 1; x < posX + 2; x++) {
-            //     for (let y = posY - 1; y < posY + 2; y++) {
-            //     //    console.log(this.land[x][y]==undefined);
-            // // console.log(this.land[0][11]==undefined);
+           
 
+            let posX = cell.id.split('-')[0];
+            let posY = cell.id.split('-')[1];
 
-            //         if(this.land[x][y]==undefined){
-            //             continue;
-            //         }
-            //         if (x == posX && y == posY) {
-            //             continue;
-            //         }
-            //         switch (this.land[x][y].value) {
-            //             case 0:
-            //                 this.showBlank(this.land[x][y]);
-            //                 break;
-            //             case 9:
-            //                 // 存疑，直接break还是使用continue?
-            //                 break;
-            //             default:
-            //                 this.showValue(this.land[x][y]);
-            //                 break;
-            //         }
+            for (let x = posX - 1; x < posX + 2; x++) {
+                for (let y = posY - 1; y < posY + 2; y++) {
+                    if(x == posX && y == posY) {
+                        continue;
+                    }
 
-            //     }
-            // }
+                    if(x < 0 || y < 0) {
+                        continue;
+                    }
+
+                    if(x >= this.gameLevel || y >= this.gameLevel) {
+                        continue;
+                    }
+                   
+                    if(this.land[x][y]!=undefined && this.land[x][y].isCover){
+                        if(this.land[x][y].value==9){
+                            continue;
+                        }
+                        if(this.land[x][y].value>0 && this.land[x][y].value<9){
+                            this.showValue(this.land[x][y]);
+                            continue;
+                        }
+                        this.remainBox--;
+                        this.land[x][y].isCover=false;
+                        this.land[x][y].isBlank=true;
+                        this.showBlank(this.land[x][y]);
+                    }
+
+                }
+            }
 
         },
         showValue: function (cell) {
-            cell.isCover=false;
-            // cell的点击事件失效
-            //如果点击事件失效设置成功，则可将stickFlag前的判断条件删除
+            cell.isCover = false;
+            this.remainBox--;
+
         },
         boom: function () {
-            for(let i=0;i<mines.length;i++){
-                mines[i].isCover=false;
-                mines[i].isMine=true;
+            for (let i = 0; i < mines.length; i++) {
+                mines[i].isCover = false;
+                mines[i].isMine = true;
             }
+            this.isStart = false;
+            clearInterval(this.timer);
 
-            // 整个table的点击事件失效
-            // for(let i=0;i<this.land[i].length;i++){
-            //     for(let j=0;j<this.land[j].length;j++){
-            //         unClick=true;
-            //     }
-            // }
         },
-        stickFlag:function(cell){
-            if(cell.isCover==false){
+        stickFlag: function (cell) {
+            if (cell.isCover == false) {
                 return;
             }
-            cell.isFlag=!cell.isFlag;
-            this.countMines(cell);  
+            cell.isFlag = !cell.isFlag;
+            this.countMines(cell);
         },
-        countMines:function(cell){
-            if(cell.isFlag===true){
+        countMines: function (cell) {
+            if (cell.isFlag === true) {
                 this.remainMines--;
             }
-            if(cell.isFlag===false){
+            if (cell.isFlag === false) {
                 this.remainMines++;
             }
         },
-        countTimes:function(){
+        countTimes: function () {
             this.times++;
+        },
+        chooseLevel:function(value){
+            this.gameLevel=value;
+        },
+        startGame: function () {
+            this.isStart = true;
+            this.times = 0;
+            this.timer = setInterval(this.countTimes, 1000);
+            this.land=initData(this.gameLevel);
+            this.remainBox=this.gameLevel*this.gameLevel;
+            this.remainMines=mines.length;
+        },
+        winGame:function(){
+            alert('you win!');
         }
     }
 
